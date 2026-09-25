@@ -65,18 +65,43 @@
         <section id="how-it-works" class="process-section"><div class="container"><div class="section-heading light"><div><div class="eyebrow">No endless calls</div><h2>From problem<br>to solved.</h2></div><p>We make it easier to find local help you can actually reach.</p></div><div class="process-grid"><div class="process-step"><span>01</span><h3>Tell us the job</h3><p>Choose a service, your area and what needs doing.</p></div><div class="process-step"><span>02</span><h3>Get a quick reply</h3><p>We connect you to an available local provider on WhatsApp.</p></div><div class="process-step"><span>03</span><h3>Agree and get it done</h3><p>Confirm the price directly and rate the service afterwards.</p></div></div></div></section>
 
         <section id="request" class="request-section container"><div class="request-copy"><div class="eyebrow">Need help today?</div><h2>Describe the<br><em>job.</em></h2><p>Send a request and MtaaFix will connect you with a nearby provider through WhatsApp.</p><div class="earn-note"><span>◈</span><div><strong>Fair for everyone</strong><br><small>Customers request for free. Providers pay for featured placement or qualified leads.</small></div></div></div><form id="service-request" class="request-form"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="e.g. Amina" required><label for="service">Service needed</label><select id="service" name="service" required><option value="">Choose a service</option><option>Plumbing</option><option>Electrical work</option><option>Cleaning</option><option>Moving services</option><option>Other</option></select><label for="area">Your area</label><input id="area" name="area" type="text" placeholder="e.g. Kasarani" required><label for="details">What needs doing?</label><input id="details" name="details" type="text" placeholder="Short description" required><button class="button button-primary" type="submit">Request help on WhatsApp <span>↗</span></button><small class="form-note">No payment required to request a quote.</small></form></section>
+        <section id="matches" class="matches-section container" hidden><div class="section-heading"><div><div class="eyebrow">Your local matches</div><h2>People who can<br><em>help nearby.</em></h2></div><p class="match-note">Contact the provider directly to agree on price and timing.</p></div><div id="match-list" class="match-list"></div></section>
 
-        <section id="fundis" class="partner-strip"><div class="container partner-content"><div><span class="eyebrow">Are you a fundi?</span><h2>Get more jobs<br>from your area.</h2><p>List your service, receive qualified requests and grow through word of mouth.</p></div><a class="button button-light" href="https://wa.me/254119636542?text=Hello%20MtaaFix%2C%20I%27d%20like%20to%20list%20my%20fundi%20service." target="_blank" rel="noopener">List your service <span>↗</span></a></div></section>
+        <section id="fundis" class="partner-strip"><div class="container partner-content"><div><span class="eyebrow">Are you a fundi?</span><h2>Get more jobs<br>from your area.</h2><p>Register your service and appear when customers search nearby.</p></div><form id="provider-register" class="provider-form"><label for="provider-name">Your name or business</label><input id="provider-name" name="providerName" type="text" placeholder="e.g. Brian Plumbing" required><label for="provider-service">Your service</label><select id="provider-service" name="providerService" required><option value="">Choose a service</option><option>Plumbing</option><option>Electrical work</option><option>Cleaning</option><option>Moving services</option></select><label for="provider-area">Your area</label><input id="provider-area" name="providerArea" type="text" placeholder="e.g. Kasarani" required><label for="provider-phone">WhatsApp number</label><input id="provider-phone" name="providerPhone" type="tel" placeholder="e.g. 0712 345 678" required><button class="button button-light" type="submit">Register my service <span>↗</span></button><small class="provider-note">Free registration for the first providers.</small></form></div></section>
     </main>
 
     <footer><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-mark">M</span><span>Mtaa<span>Fix</span></span></a><p>Good help. Close to home.</p><div><a href="https://wa.me/254119636542" target="_blank" rel="noopener">WhatsApp us</a><span>© 2026 MtaaFix Kenya</span></div></div></footer>
     <script>
         const form = document.querySelector('#service-request');
+        const providerForm = document.querySelector('#provider-register');
+        const matchesSection = document.querySelector('#matches');
+        const matchList = document.querySelector('#match-list');
+        const providers = JSON.parse(localStorage.getItem('mtaafix-providers') || '[]');
+
+        const renderMatches = (service, area) => {
+            const requestedService = service.toLowerCase();
+            const requestedArea = area.toLowerCase();
+            const matches = providers.filter((provider) => provider.service.toLowerCase() === requestedService && (provider.area.toLowerCase().includes(requestedArea) || requestedArea.includes(provider.area.toLowerCase())));
+            matchList.innerHTML = matches.length ? matches.map((provider) => `<article class="match-card"><div class="provider-avatar">${provider.name.charAt(0).toUpperCase()}</div><div><h3>${provider.name}</h3><p>${provider.service} · ${provider.area}</p></div><a class="match-contact" href="https://wa.me/${provider.phone}?text=${encodeURIComponent(`Hello ${provider.name}, I found you on MtaaFix and need ${provider.service} in ${provider.area}.`)}" target="_blank" rel="noopener">WhatsApp <span>↗</span></a></article>`).join('') : '<div class="empty-match"><strong>No provider is registered in that area yet.</strong><p>We have sent your request to MtaaFix. We will help you find a nearby provider.</p></div>';
+            matchesSection.hidden = false;
+            matchesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+
         form.addEventListener('submit', (event) => {
             event.preventDefault();
             const data = new FormData(form);
+            renderMatches(data.get('service'), data.get('area'));
             const message = `Hello MtaaFix, my name is ${data.get('name')}. I need ${data.get('service')} in ${data.get('area')}. Details: ${data.get('details')}`;
             window.open(`https://wa.me/254119636542?text=${encodeURIComponent(message)}`, '_blank');
+        });
+        providerForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const data = new FormData(providerForm);
+            const phone = data.get('providerPhone').replace(/\D/g, '').replace(/^0/, '254');
+            providers.push({ name: data.get('providerName'), service: data.get('providerService'), area: data.get('providerArea'), phone });
+            localStorage.setItem('mtaafix-providers', JSON.stringify(providers));
+            providerForm.reset();
+            alert('Your service is registered on this device. Customers can now find you by service and area.');
         });
         document.querySelectorAll('[data-service]').forEach((link) => link.addEventListener('click', () => {
             document.querySelector('#service').value = link.dataset.service;
