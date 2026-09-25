@@ -1,4 +1,4 @@
 window.MTAAFIX_SUPABASE = {
-    url: '',
-    anonKey: ''
+    url: 'https://oisbdqaovccvtcbyazap.supabase.co',
+    anonKey: 'sb_publishable_ltaNA7nnVozoSCOcZIjg'
 };
