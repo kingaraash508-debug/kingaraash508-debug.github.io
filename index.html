@@ -1,366 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
+    <meta name="description" content="Find trusted plumbers, electricians, cleaners and movers near you in Kenya. Request a local fundi through MtaaFix on WhatsApp.">
+    <meta name="keywords" content="fundi Kenya, plumber Nairobi, electrician Nairobi, cleaners Kenya, movers Nairobi, local services Kenya">
+    <meta name="author" content="MtaaFix Kenya">
+    <meta name="theme-color" content="#18211f">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="MtaaFix | Find a trusted fundi near you">
+    <meta property="og:description" content="Connect with local plumbers, electricians, cleaners and movers in Kenya through WhatsApp.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=85">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MtaaFix | Find a trusted fundi near you">
+    <meta name="twitter:description" content="Local help for repairs, cleaning, moving and home services in Kenya.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Car World</title>
-
+    <title>MtaaFix | Find a trusted fundi near you</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "MtaaFix Kenya",
+        "description": "A local service marketplace connecting Kenyans with fundis for home repairs, cleaning and moving.",
+        "telephone": "+254119636542",
+        "areaServed": "Kenya",
+        "serviceType": ["Plumbing", "Electrical work", "Cleaning", "Moving services"]
+    }
+    </script>
 </head>
-
-
 <body>
+    <header class="site-header">
+        <nav class="nav container" aria-label="Main navigation">
+            <a class="brand" href="#top"><span class="brand-mark">M</span><span>Mtaa<span>Fix</span></span></a>
+            <div class="nav-links"><a href="#services">Services</a><a href="#how-it-works">How it works</a><a href="#fundis">For fundis</a></div>
+            <a class="nav-cta" href="#request">Get help <span>↗</span></a>
+        </nav>
+    </header>
 
-
-
-    <nav>
-
-        <div class="logo">
-            <h2>Car Worlds</h2>
-        </div>
-
-        <ul>
-
-            <li>
-                <a href="#home">Home</a>
-            </li>
-
-            <li>
-                <a href="#about">About</a>
-            </li>
-
-            <li>
-                <a href="#catalog">Catalog</a>
-            </li>
-
-            <li>
-                <a href="#gallery">Gallery</a>
-            </li>
-
-            <li>
-                <a href="#login">Login / Signup</a>
-            </li>
-
-            <li>
-                <a href="#contact">Contact</a>
-            </li>
-
-        </ul>
-
-    </nav>
-
-
-
-    <section id="home" class="home">
-
-        <div class="home-content">
-
-            <h1>Welcome to Car World</h1>
-
-            <p>
-                Discover beautiful classic and modern cars.
-            </p>
-
-            <a href="#catalog">
-                <button>Explore Cars</button>
-            </a>
-
-        </div>
-
-    </section>
-
-
-
-    <section id="about" class="about">
-
-        <h2>About Us</h2>
-
-        <div class="about-content">
-
-            <p>
-                Welcome to Car World!
-                This website is made for people who love cars.
-                Here you can explore different cars, look at our
-                gallery and learn more about some amazing vehicles.
-            </p>
-
-            <p>
-                We have modern sports cars, classic cars and
-                powerful muscle cars.
-            </p>
-
-        </div>
-
-    </section>
-
-
-
-    <section id="catalog" class="catalog">
-
-        <h2>Car Catalog</h2>
-
-        <p class="section-text">
-            Check out some of the cars in our collection.
-        </p>
-
-
-        <div class="cars">
-
-
-            <!-- BMW -->
-
-            <div class="car">
-
-                <img
-                    src="images/bmw.jpg"
-                    alt="BMW M4"
-                >
-
-                <h3>BMW M4</h3>
-
-                <p>
-                    A powerful and sporty BMW made for
-                    people who love speed.
-                </p>
-
-                <h4>$75,000</h4>
-
-                <button>
-                    View Car
-                </button>
-
+    <main id="top">
+        <section class="hero container">
+            <div class="hero-copy">
+                <div class="eyebrow"><span class="live-dot"></span> Local help, without the hassle</div>
+                <h1>Find a good<br><em>fundi nearby.</em></h1>
+                <p class="hero-text">Plumbing, electrical, moving, cleaning and more. Tell us what needs fixing and we will connect you to someone ready to help.</p>
+                <div class="hero-actions"><a class="button button-primary" href="#request">Get help now <span>→</span></a><a class="button button-quiet" href="#services">Browse services <span>↓</span></a></div>
+                <div class="trust-row"><div class="avatars"><span>JM</span><span>AK</span><span>NW</span></div><p><strong>Local providers</strong><br>serving your neighbourhood</p></div>
             </div>
-
-
-
-            <!-- RED CLASSIC CAR -->
-
-            <div class="car">
-
-                <img
-                    src="images/red-car.jpg"
-                    alt="Red Classic Car"
-                >
-
-                <h3>Classic Red Car</h3>
-
-                <p>
-                    A beautiful classic car with
-                    a timeless design.
-                </p>
-
-                <h4>$65,000</h4>
-
-                <button>
-                    View Car
-                </button>
-
-            </div>
-
-
-
-            <div class="car">
-
-                <img
-                    src="images/black car.jpg"
-                    alt="Black Muscle Car"
-                >
-
-                <h3>Black Muscle Car</h3>
-
-                <p>
-                    A classic American muscle car
-                    with a powerful look.
-                </p>
-
-                <h4>$55,000</h4>
-
-                <button>
-                    View Car
-                </button>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <section id="gallery" class="gallery">
-
-        <h2>Car Gallery</h2>
-
-        <p class="section-text">
-            Take a look at some of our favorite cars.
-        </p>
-
-
-        <div class="gallery-container">
-
-
-            <div class="gallery-item">
-
-                <img
-                    src="images/bmw.jpg"
-                    alt="BMW M4"
-                >
-
-                <p>BMW M4</p>
-
-            </div>
-
-
-
-            <div class="gallery-item">
-
-                <img
-                    src="images/red-car.jpg"
-                    alt="Red Classic Car"
-                >
-
-                <p>Classic Red Car</p>
-
-            </div>
-
-
-
-            <div class="gallery-item">
-
-                <img
-                    src="images/black car.jpg"
-                    alt="Black Muscle Car"
-                >
-
-                <p>Black Muscle Car</p>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <section id="login" class="login">
-
-        <h2>Login / Signup</h2>
-
-        <div class="login-container">
-
-
-            <!-- SIGN UP -->
-
-            <div class="login-box">
-
-                <h3>Create an Account</h3>
-
-                <input
-                    type="text"
-                    placeholder="Your Name"
-                >
-
-                <input
-                    type="email"
-                    placeholder="Your Email"
-                >
-
-                <input
-                    type="password"
-                    placeholder="Your Password"
-                >
-
-                <button>
-                    Sign Up
-                </button>
-
-            </div>
-
-
-            <div class="login-box">
-
-                <h3>Login</h3>
-
-                <input
-                    type="email"
-                    placeholder="Your Email"
-                >
-
-                <input
-                    type="password"
-                    placeholder="Your Password"
-                >
-
-                <button>
-                    Login
-                </button>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-
-    <section id="contact" class="contact">
-
-        <h2>Contact Us</h2>
-
-        <p class="section-text">
-            Have a question? Send us a message.
-        </p>
-
-
-        <form>
-
-            <input
-                type="text"
-                placeholder="Your Name"
-            >
-
-            <input
-                type="email"
-                placeholder="Your Email"
-            >
-
-            <textarea
-                placeholder="Your Message"
-            ></textarea>
-
-            <button type="submit">
-                Send Message
-            </button>
-
-        </form>
-
-    </section>
-
-
-
-    <footer>
-
-        <h3>Car World</h3>
-
-        <p>
-            Cars, style and passion.
-        </p>
-
-        <p>
-            © 2026 Car World
-        </p>
-
-    </footer>
-
-
+            <div class="hero-visual"><div class="hero-image-wrap"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1100&q=85" alt="Fundi repairing a sink at home"><div class="image-label"><span class="status-dot"></span> Available today <strong>● Nairobi</strong></div></div><div class="floating-note note-top"><span>01</span><div><strong>Choose a service</strong><small>From your phone</small></div></div><div class="floating-note note-bottom"><span class="check">✓</span><div><strong>WhatsApp booking</strong><small>Fast, simple, local</small></div></div></div>
+        </section>
+
+        <section class="stats-bar"><div class="container stats"><div><strong>10 min</strong><span>average reply target</span></div><div><strong>7 days</strong><span>provider support</span></div><div><strong>KSh 0</strong><span>to request a quote</span></div><div class="stats-tag">Made for <b>KE</b></div></div></section>
+
+        <section id="services" class="section container"><div class="section-heading"><div><div class="eyebrow">What do you need?</div><h2>Help for real<br>life problems.</h2></div><a class="text-link" href="#request">Request a service <span>↗</span></a></div><div class="service-grid">
+            <a class="service-card" href="#request" data-service="Plumbing"><div class="service-icon">⌁</div><h3>Plumbing</h3><p>Leaks, taps, sinks, toilets and blocked drains.</p><span>Find a plumber <b>→</b></span></a>
+            <a class="service-card" href="#request" data-service="Electrical work"><div class="service-icon yellow">⌁</div><h3>Electrical</h3><p>Wiring, sockets, lighting and power faults.</p><span>Find an electrician <b>→</b></span></a>
+            <a class="service-card" href="#request" data-service="Cleaning"><div class="service-icon coral">✦</div><h3>Cleaning</h3><p>Homes, offices, sofas, carpets and move-outs.</p><span>Book a cleaner <b>→</b></span></a>
+            <a class="service-card" href="#request" data-service="Moving services"><div class="service-icon blue">↗</div><h3>Moving</h3><p>Reliable help for house moves and deliveries.</p><span>Find movers <b>→</b></span></a>
+        </div></section>
+
+        <section id="how-it-works" class="process-section"><div class="container"><div class="section-heading light"><div><div class="eyebrow">No endless calls</div><h2>From problem<br>to solved.</h2></div><p>We make it easier to find local help you can actually reach.</p></div><div class="process-grid"><div class="process-step"><span>01</span><h3>Tell us the job</h3><p>Choose a service, your area and what needs doing.</p></div><div class="process-step"><span>02</span><h3>Get a quick reply</h3><p>We connect you to an available local provider on WhatsApp.</p></div><div class="process-step"><span>03</span><h3>Agree and get it done</h3><p>Confirm the price directly and rate the service afterwards.</p></div></div></div></section>
+
+        <section id="request" class="request-section container"><div class="request-copy"><div class="eyebrow">Need help today?</div><h2>Describe the<br><em>job.</em></h2><p>Send a request and MtaaFix will connect you with a nearby provider through WhatsApp.</p><div class="earn-note"><span>◈</span><div><strong>Fair for everyone</strong><br><small>Customers request for free. Providers pay for featured placement or qualified leads.</small></div></div></div><form id="service-request" class="request-form"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="e.g. Amina" required><label for="service">Service needed</label><select id="service" name="service" required><option value="">Choose a service</option><option>Plumbing</option><option>Electrical work</option><option>Cleaning</option><option>Moving services</option><option>Other</option></select><label for="area">Your area</label><input id="area" name="area" type="text" placeholder="e.g. Kasarani" required><label for="details">What needs doing?</label><input id="details" name="details" type="text" placeholder="Short description" required><button class="button button-primary" type="submit">Request help on WhatsApp <span>↗</span></button><small class="form-note">No payment required to request a quote.</small></form></section>
+
+        <section id="fundis" class="partner-strip"><div class="container partner-content"><div><span class="eyebrow">Are you a fundi?</span><h2>Get more jobs<br>from your area.</h2><p>List your service, receive qualified requests and grow through word of mouth.</p></div><a class="button button-light" href="https://wa.me/254119636542?text=Hello%20MtaaFix%2C%20I%27d%20like%20to%20list%20my%20fundi%20service." target="_blank" rel="noopener">List your service <span>↗</span></a></div></section>
+    </main>
+
+    <footer><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-mark">M</span><span>Mtaa<span>Fix</span></span></a><p>Good help. Close to home.</p><div><a href="https://wa.me/254119636542" target="_blank" rel="noopener">WhatsApp us</a><span>© 2026 MtaaFix Kenya</span></div></div></footer>
+    <script>
+        const form = document.querySelector('#service-request');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const data = new FormData(form);
+            const message = `Hello MtaaFix, my name is ${data.get('name')}. I need ${data.get('service')} in ${data.get('area')}. Details: ${data.get('details')}`;
+            window.open(`https://wa.me/254119636542?text=${encodeURIComponent(message)}`, '_blank');
+        });
+        document.querySelectorAll('[data-service]').forEach((link) => link.addEventListener('click', () => {
+            document.querySelector('#service').value = link.dataset.service;
+        }));
+    </script>
 </body>
-
 </html>
