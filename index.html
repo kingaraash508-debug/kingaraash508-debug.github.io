@@ -71,37 +71,62 @@
     </main>
 
     <footer><div class="container footer-inner"><a class="brand" href="#top"><span class="brand-mark">M</span><span>Mtaa<span>Fix</span></span></a><p>Good help. Close to home.</p><div><a href="https://wa.me/254119636542" target="_blank" rel="noopener">WhatsApp us</a><span>© 2026 MtaaFix Kenya</span></div></div></footer>
+    <script src="supabase-config.js"></script>
     <script>
         const form = document.querySelector('#service-request');
         const providerForm = document.querySelector('#provider-register');
         const matchesSection = document.querySelector('#matches');
         const matchList = document.querySelector('#match-list');
-        const providers = JSON.parse(localStorage.getItem('mtaafix-providers') || '[]');
+        const localProviders = JSON.parse(localStorage.getItem('mtaafix-providers') || '[]');
+        const supabase = window.MTAAFIX_SUPABASE || {};
+        const supabaseReady = Boolean(supabase.url && supabase.anonKey);
 
-        const renderMatches = (service, area) => {
+        const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+        const apiRequest = async (table, options = {}) => {
+            const response = await fetch(`${supabase.url}/rest/v1/${table}`, {
+                ...options,
+                headers: { apikey: supabase.anonKey, Authorization: `Bearer ${supabase.anonKey}`, 'Content-Type': 'application/json', Prefer: 'return=representation', ...(options.headers || {}) }
+            });
+            if (!response.ok) throw new Error(`Supabase request failed: ${response.status}`);
+            return response.status === 204 ? null : response.json();
+        };
+
+        const getProviders = async () => {
+            if (!supabaseReady) return localProviders;
+            return apiRequest('providers?approved=eq.true&select=id,name,service,area,phone');
+        };
+
+        const renderMatches = async (service, area) => {
             const requestedService = service.toLowerCase();
             const requestedArea = area.toLowerCase();
+            let providers = localProviders;
+            try { providers = await getProviders(); } catch (error) { console.warn(error); }
             const matches = providers.filter((provider) => provider.service.toLowerCase() === requestedService && (provider.area.toLowerCase().includes(requestedArea) || requestedArea.includes(provider.area.toLowerCase())));
-            matchList.innerHTML = matches.length ? matches.map((provider) => `<article class="match-card"><div class="provider-avatar">${provider.name.charAt(0).toUpperCase()}</div><div><h3>${provider.name}</h3><p>${provider.service} · ${provider.area}</p></div><a class="match-contact" href="https://wa.me/${provider.phone}?text=${encodeURIComponent(`Hello ${provider.name}, I found you on MtaaFix and need ${provider.service} in ${provider.area}.`)}" target="_blank" rel="noopener">WhatsApp <span>↗</span></a></article>`).join('') : '<div class="empty-match"><strong>No provider is registered in that area yet.</strong><p>We have sent your request to MtaaFix. We will help you find a nearby provider.</p></div>';
+            matchList.innerHTML = matches.length ? matches.map((provider) => `<article class="match-card"><div class="provider-avatar">${escapeHtml(provider.name.charAt(0).toUpperCase())}</div><div><h3>${escapeHtml(provider.name)}</h3><p>${escapeHtml(provider.service)} · ${escapeHtml(provider.area)}</p></div><a class="match-contact" href="https://wa.me/${encodeURIComponent(provider.phone)}?text=${encodeURIComponent(`Hello ${provider.name}, I found you on MtaaFix and need ${provider.service} in ${provider.area}.`)}" target="_blank" rel="noopener">WhatsApp <span>↗</span></a></article>`).join('') : '<div class="empty-match"><strong>No approved provider is registered in that area yet.</strong><p>We have sent your request to MtaaFix. We will help you find a nearby provider.</p></div>';
             matchesSection.hidden = false;
             matchesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         };
 
-        form.addEventListener('submit', (event) => {
+        form.addEventListener('submit', async (event) => {
             event.preventDefault();
             const data = new FormData(form);
-            renderMatches(data.get('service'), data.get('area'));
-            const message = `Hello MtaaFix, my name is ${data.get('name')}. I need ${data.get('service')} in ${data.get('area')}. Details: ${data.get('details')}`;
+            const request = { customer_name: data.get('name'), service: data.get('service'), area: data.get('area'), details: data.get('details') };
+            if (supabaseReady) { try { await apiRequest('service_requests', { method: 'POST', body: JSON.stringify(request) }); } catch (error) { console.warn(error); } }
+            await renderMatches(request.service, request.area);
+            const message = `Hello MtaaFix, my name is ${request.customer_name}. I need ${request.service} in ${request.area}. Details: ${request.details}`;
             window.open(`https://wa.me/254119636542?text=${encodeURIComponent(message)}`, '_blank');
         });
-        providerForm.addEventListener('submit', (event) => {
+        providerForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const data = new FormData(providerForm);
-            const phone = data.get('providerPhone').replace(/\D/g, '').replace(/^0/, '254');
-            providers.push({ name: data.get('providerName'), service: data.get('providerService'), area: data.get('providerArea'), phone });
-            localStorage.setItem('mtaafix-providers', JSON.stringify(providers));
+            const provider = { name: data.get('providerName'), service: data.get('providerService'), area: data.get('providerArea'), phone: data.get('providerPhone').replace(/\D/g, '').replace(/^0/, '254') };
+            if (supabaseReady) {
+                try { await apiRequest('providers', { method: 'POST', body: JSON.stringify(provider) }); providerForm.reset(); alert('Registration received. Your listing will appear after approval.'); return; } catch (error) { console.warn(error); }
+            }
+            localProviders.push(provider);
+            localStorage.setItem('mtaafix-providers', JSON.stringify(localProviders));
             providerForm.reset();
-            alert('Your service is registered on this device. Customers can now find you by service and area.');
+            alert('Your service is registered on this device. Connect Supabase to share it with all customers.');
         });
         document.querySelectorAll('[data-service]').forEach((link) => link.addEventListener('click', () => {
             document.querySelector('#service').value = link.dataset.service;
